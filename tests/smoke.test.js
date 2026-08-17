@@ -50,15 +50,15 @@ test('objetivos por sesión diaria y semanal', () => {
 });
 
 test('la PWA mantiene los recursos esenciales', () => {
-  for (const file of ['./', './index.html', './styles.css?v=2.1-beta-build1', './app.js?v=2.1-beta-build1', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
+  for (const file of ['./', './index.html', './styles.css?v=2.1-beta-build2', './app.js?v=2.1-beta-build2', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
     assert.ok(sw.includes(`'${file}'`), `Falta ${file} en la caché`);
   }
   assert.match(sw, /key\.startsWith\('matematicas-tradicionales-beta-'\)/);
 });
 
 test('HTML carga estilos y lógica separados', () => {
-  assert.match(html, /href="styles\.css\?v=2\.1-beta-build1"/);
-  assert.match(html, /src="app\.js\?v=2\.1-beta-build1"/);
+  assert.match(html, /href="styles\.css\?v=2\.1-beta-build2"/);
+  assert.match(html, /src="app\.js\?v=2\.1-beta-build2"/);
   assert.doesNotMatch(html, /<style>/);
 });
 
@@ -117,4 +117,12 @@ test('V2.1 Beta incluye herramientas familiares y accesibilidad', () => {
   assert.match(app, /Progreso para adultos/);
   assert.match(app, /Racha de 30 días/);
   assert.doesNotMatch(app, /sumasRestas_v5/);
+});
+
+test('muestra la configuración actual en cada modo', () => {
+  assert.match(app, /function operationConfigText/);
+  assert.match(app, /function updateOperationDescriptions/);
+  assert.match(app, /profile\.counts\[op\]/);
+  assert.match(app, /entero exacto/);
+  assert.match(app, /con llevadas/);
 });
