@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Matemáticas Beta">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Matemáticas tradicionales</title>
+<link rel="stylesheet" href="styles.css?v=2.0.0-beta.1">
+</head>
+<body>
+<div class="app">
+
+<!-- 1. USUARIOS -->
+<section id="userScreen" class="screen active">
+  <div class="card setup-card">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"><span>+</span><span>−</span><span>×</span><span>÷</span></div>
+      <div><h1>Matemáticas tradicionales</h1><p class="subtitle">¿Quién va a practicar?</p></div>
+    </div>
+
+    <div id="userList" class="user-list"></div>
+    <button id="newUserBtn" class="new-user-button">+ Crear nuevo usuario</button>
+    <p class="app-version">Versión 2.0.0 beta 1 · Canal de pruebas</p>
+    <aside class="support-project" aria-label="Apoyar el proyecto">
+      <div><b>¿Te resulta útil esta aplicación?</b><span>Seguirá siendo gratuita. Puedes apoyar voluntariamente su mantenimiento y futuras mejoras.</span></div>
+      <button id="supportProjectBtn" type="button">☕ Apoyar el proyecto</button>
+    </aside>
+
+    <div id="newUserRow" class="new-user-row">
+      <input id="newUserName" type="text" maxlength="24" placeholder="Nombre">
+      <button id="saveUserBtn" class="compact-btn">Crear</button>
+    </div>
+  </div>
+</section>
+
+<section id="supportIntroScreen" class="screen">
+  <div class="page-head"><button id="backSupportIntroBtn" class="icon-btn" aria-label="Volver">←</button><div class="page-head-title">Antes de continuar…<span class="page-head-sub">El apoyo siempre es voluntario</span></div><div class="ghost-space"></div></div>
+  <div class="card support-gate-card"><div class="support-gate-icon">☕</div><h2>¿Utilizas realmente esta aplicación y crees que merece tu apoyo?</h2><p>La aplicación seguirá siendo gratuita. Solo continúa si de verdad te resulta útil.</p><div class="support-gate-actions"><button id="declineSupportBtn" class="answer-btn">No, volver</button><button id="acceptSupportBtn" class="main-btn">Sí, quiero continuar</button></div></div>
+</section>
+
+<section id="supportResultScreen" class="screen">
+  <div class="page-head"><button id="backSupportResultBtn" class="icon-btn" aria-label="Volver">←</button><div class="page-head-title">Prueba terminada<span class="page-head-sub">Se necesitan cuatro aciertos</span></div><div class="ghost-space"></div></div>
+  <div class="card exam-summary"><div id="supportResultMessage" class="support-result-message"></div><div id="supportScore" class="exam-score"></div><div id="supportReview" class="exam-review"></div><div class="support-result-actions"><button id="retrySupportBtn" class="answer-btn">Intentarlo de nuevo</button><a id="openSupportLink" class="support-link-btn" href="https://buymeacoffee.com/aitorcrea" target="_blank" rel="noopener noreferrer">☕ Invitar a AitorCrea a un café</a><button id="leaveSupportBtn" class="answer-btn">Volver al inicio</button></div><p class="support-free-note">Apoyar es completamente voluntario. La aplicación seguirá siendo gratuita.</p></div>
+</section>
+
+<!-- 2. OPERACIÓN -->
+<section id="operationScreen" class="screen">
+  <div class="page-head operation-head">
+    <button id="backUsersBtn" class="icon-btn" aria-label="Usuarios">←</button>
+    <div class="page-head-title"><span id="operationUserName">Usuario</span><span class="page-head-sub">Elige qué quieres practicar</span></div>
+    <div class="head-actions"><button id="historyBtn" class="history-inline" aria-label="Historial">▤</button><button id="settingsBtn" class="history-inline" aria-label="Ajustes">⚙</button></div>
+  </div>
+
+  <div class="card">
+    <div class="operation-choice-grid">
+      <button class="operation-choice" data-op="add">
+        <span class="big-symbol">+</span><span class="op-title">Sumas</span><span class="op-hint">Con y sin llevadas</span>
+      </button>
+      <button class="operation-choice" data-op="sub">
+        <span class="big-symbol">−</span><span class="op-title">Restas</span><span class="op-hint">Método tradicional</span>
+      </button>
+      <button class="operation-choice" data-op="mul">
+        <span class="big-symbol">×</span><span class="op-title">Multiplicar</span><span class="op-hint">Niveles iniciales</span>
+      </button>
+      <button class="operation-choice" data-op="div">
+        <span class="big-symbol">÷</span><span class="op-title">Dividir</span><span class="op-hint">Divisiones exactas</span>
+      </button>
+      <button class="operation-choice program-choice" data-program="practice">
+        <span class="big-symbol">▦</span><span class="op-title">Modo ejercicios</span><span class="op-hint">Serie configurada con corrección y respuestas</span>
+      </button>
+      <button class="operation-choice program-choice" data-program="exam">
+        <span class="big-symbol">✓</span><span class="op-title">Modo examen</span><span class="op-hint">Sin corrección hasta terminar</span>
+      </button>
+    </div>
+    <div id="operationUserStats" class="selected-user-box"></div>
+    <div id="dailyGoalBox" class="daily-goal-box"></div>
+  </div>
+</section>
+
+<section id="settingsScreen" class="screen">
+  <div class="page-head"><button id="backSettingsBtn" class="icon-btn" aria-label="Volver">←</button><div class="page-head-title">Ajustes<span class="page-head-sub">Configuración para adultos</span></div><div class="ghost-space"></div></div>
+  <div class="card"><div id="settingsOptions" class="program-list"></div><button id="saveSettingsBtn" class="difficulty-start">Guardar ajustes</button><div id="settingsSaveNote" class="settings-save-note"></div></div>
+</section>
+
+<!-- PROGRAMACIÓN DE SESIÓN -->
+<section id="programScreen" class="screen">
+  <div class="page-head">
+    <button id="backProgramBtn" class="icon-btn" aria-label="Operaciones">←</button>
+    <div class="page-head-title"><span id="programTitle">Programar ejercicios</span><span class="page-head-sub">Elige cantidades y configuración</span></div>
+    <div class="ghost-space"></div>
+  </div>
+  <div class="card">
+    <div id="programOptions" class="program-list"></div>
+    <div class="section-title">Programaciones guardadas</div>
+    <div id="savedPrograms" class="saved-programs"></div>
+    <div class="save-program-row"><input id="programName" maxlength="30" placeholder="Ej.: Práctica diaria"><button id="saveProgramBtn">Guardar</button></div>
+    <button id="startProgramBtn" class="difficulty-start">Empezar</button>
+  </div>
+</section>
+
+<!-- 3. DIFICULTAD -->
+<section id="difficultyScreen" class="screen">
+  <div class="page-head">
+    <button id="backOperationsBtn" class="icon-btn" aria-label="Operaciones">←</button>
+    <div class="page-head-title"><span id="difficultyTitle">Sumas</span><span class="page-head-sub">Elige el nivel</span></div>
+    <div class="ghost-space"></div>
+  </div>
+
+  <div class="card">
+    <div id="difficultyOptions"></div>
+    <button id="startBtn" class="difficulty-start">Empezar</button>
+  </div>
+</section>
+
+<section id="examResultScreen" class="screen">
+  <div class="page-head"><div class="ghost-space"></div><div id="resultTitle" class="page-head-title">Resultado del examen</div><div class="ghost-space"></div></div>
+  <div class="card exam-summary"><div id="examScore" class="exam-score"></div><div id="examReview" class="exam-review"></div><button id="finishExamBtn" class="difficulty-start">Volver a operaciones</button></div>
+</section>
+
+<!-- 4. EJERCICIOS -->
+<section id="exerciseScreen" class="screen">
+  <div class="topbar">
+    <button id="backBtn" class="icon-btn" aria-label="Volver">←</button>
+    <div id="counter" class="counter">Hechas: 0</div>
+    <button id="infoBtn" class="icon-btn" aria-label="Información">i</button>
+  </div>
+
+  <div class="card exercise-card">
+    <div id="exerciseLabel" class="exercise-label"></div>
+    <div class="math-wrap"><div id="math"></div></div>
+    <div id="status" class="status"></div>
+    <div class="actions">
+      <button id="mainBtn" class="main-btn">Corregir</button>
+      <button id="solutionBtn" class="answer-btn">Ver respuesta</button>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div id="infoModal" class="modal" role="dialog" aria-modal="true"><div class="modal-card"><div class="modal-head"><h2>Cómo se hace</h2><button id="closeInfo" class="close">×</button></div><div id="infoText" class="info-text"></div></div></div>
+<div id="parentGateModal" class="modal" role="dialog" aria-modal="true"><div class="modal-card parent-gate"><div class="modal-head"><h2>Acceso para adultos</h2><button id="closeParentGate" class="close">×</button></div><p>¿Qué se utilizaba para rebobinar una cinta de casete?</p><label class="parent-answer"><b>B</b><input id="parentAnswer" maxlength="3" autocomplete="off" aria-label="Completa Boli"><b>Bic</b></label><div id="parentGateStatus" class="status"></div><button id="parentGateBtn" class="difficulty-start">Entrar en Ajustes</button></div></div>
+<div id="historyModal" class="modal" role="dialog" aria-modal="true"><div class="modal-card"><div class="modal-head"><h2>Historial</h2><button id="closeHistory" class="close">×</button></div><div id="historyUser" class="history-user"></div><label class="history-period"><span>Mostrar</span><select id="historyPeriod"><option value="week">Última semana</option><option value="month" selected>Último mes</option><option value="year">Último año</option><option value="all">Todo el historial</option></select></label><div id="stats" class="stats"></div><div id="streakNote" class="streak-note"></div><div id="historyCalendar" class="history-calendar"></div><div id="historyList" class="history-list"></div><div class="history-footer"><button id="clearHistory" class="danger">Borrar historial</button></div></div></div>
+<button id="installBtn" style="display:none"></button>
+<div id="offlineBadge" class="offline-badge" role="status">Sin conexión · tus datos se guardan en este dispositivo</div>
+<div id="updateBanner" class="update-banner"><span>Nueva versión disponible</span><button id="updateBtn">Actualizar</button></div>
+
+<script src="app.js?v=2.0.0-beta.1"></script>
+</body>
+</html>
+
