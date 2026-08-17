@@ -48,6 +48,17 @@ function exactDigits(d){return [10**(d-1),10**d-1]}
 function digitsOf(n,d){return String(n).padStart(d,'0').split('').map(Number)}
 function labelOp(op){return({add:'Suma',sub:'Resta',mul:'Multiplicación',div:'División'})[op]||op}
 function symbolOp(op){return({add:'+',sub:'−',mul:'×',div:'÷'})[op]||'?'}
+function operationConfigText(op,s){
+  if(op==='add')return `${s.digits} × ${s.count} ${s.carry==='yes'?'con llevadas':'sin llevadas'}`;
+  if(op==='sub')return `${s.digits} cifras ${s.carry==='yes'?'con llevadas':'sin llevadas'}`;
+  if(op==='mul')return `${s.multiplicandDigits} × ${s.multiplierDigits} cifras`;
+  const resultName={integer:'entero exacto',terminating:'decimal exacto',pure:'periódico sencillo',mixed:'periódico mixto'}[s.resultType]||s.resultType;
+  return `${s.dividendDigits} ÷ ${s.divisorDigits} · ${resultName}`;
+}
+function updateOperationDescriptions(){
+  ['add','sub','mul','div'].forEach(op=>{const hint=document.querySelector(`[data-op="${op}"] .op-hint`);if(hint)hint.textContent=operationConfigText(op,settingsState[op])});
+  ['practice','exam'].forEach(mode=>{const profile=programProfiles[mode],hint=document.querySelector(`[data-program="${mode}"] .op-hint`),names={add:'Sumas',sub:'Restas',mul:'Multiplicaciones',div:'Divisiones'},items=['add','sub','mul','div'].filter(op=>profile.counts[op]>0).map(op=>`<span><b>${profile.counts[op]} × ${names[op]}</b> · ${operationConfigText(op,profile.settings[op])}</span>`);if(hint)hint.innerHTML=items.length?`<span class="op-config-list">${items.join('')}</span>`:'Sin ejercicios configurados'});
+}
 function isExamSession(){return sessionMode==='exam'||sessionMode==='supportExam'}
 function clone(value){return JSON.parse(JSON.stringify(value))}
 function mergeSettings(source={}){
@@ -122,6 +133,7 @@ function updateOperationStats(){
   const h=historyFor(currentUser);
   const first=h.filter(x=>x.attempts?.length===1&&x.attempts[0].correct&&!x.solutionUsed).length;
   $('operationUserStats').innerHTML=`<b>${escapeHtml(currentUser)}</b> · ${h.length} ejercicios · ${first} a la primera`;
+  updateOperationDescriptions();
   updateDailyGoal();
 }
 function updateDailyGoal(){
