@@ -50,15 +50,15 @@ test('objetivos por sesión diaria y semanal', () => {
 });
 
 test('la PWA mantiene los recursos esenciales', () => {
-  for (const file of ['./', './index.html', './styles.css?v=2.0.0-beta.4', './app.js?v=2.0.0-beta.4', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
+  for (const file of ['./', './index.html', './styles.css?v=2.0.0-beta.5', './app.js?v=2.0.0-beta.5', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
     assert.ok(sw.includes(`'${file}'`), `Falta ${file} en la caché`);
   }
   assert.match(sw, /key\.startsWith\('matematicas-tradicionales-beta-'\)/);
 });
 
 test('HTML carga estilos y lógica separados', () => {
-  assert.match(html, /href="styles\.css\?v=2\.0\.0-beta\.4"/);
-  assert.match(html, /src="app\.js\?v=2\.0\.0-beta\.4"/);
+  assert.match(html, /href="styles\.css\?v=2\.0\.0-beta\.5"/);
+  assert.match(html, /src="app\.js\?v=2\.0\.0-beta\.5"/);
   assert.doesNotMatch(html, /<style>/);
 });
 
@@ -67,6 +67,7 @@ test('la goma mágica borra solo las casillas incorrectas', () => {
   assert.match(app, /document\.querySelectorAll\('#math input\.bad'\)/);
   assert.match(app, /wrong\.forEach\(inp=>/);
   assert.match(app, /inp\.value='';inp\.classList\.remove\('bad'\)/);
+  assert.match(app, /\?'block':'none'/);
 });
 
 test('guarda y muestra la mejor nota del examen', () => {

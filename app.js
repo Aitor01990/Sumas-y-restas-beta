@@ -473,7 +473,7 @@ function newExercise(queueItem=null){
   renderExercise();
 }
 function makeText(parent,row,col,text,cls='digit',id=''){const el=document.createElement('div');el.textContent=text;el.className=cls;el.style.gridRow=row;el.style.gridColumn=col;if(id)el.id=id;parent.appendChild(el);return el}
-function updateMagicEraser(){const btn=$('magicEraserBtn');if(btn)btn.style.display=!isExamSession()&&document.querySelector('#math input.bad')?'':'none'}
+function updateMagicEraser(){const btn=$('magicEraserBtn');if(btn)btn.style.display=!isExamSession()&&document.querySelector('#math input.bad')?'block':'none'}
 function onEdit(){exerciseSolved=false;$('mainBtn').textContent=isExamSession()?'Siguiente':'Corregir';$('solutionBtn').disabled=false;$('status').textContent='';$('status').className='status';resetReveal();updateMagicEraser()}
 function eraseWrongAnswers(){
   const wrong=[...document.querySelectorAll('#math input.bad')];
