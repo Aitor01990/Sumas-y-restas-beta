@@ -50,15 +50,15 @@ test('objetivos por sesión diaria y semanal', () => {
 });
 
 test('la PWA mantiene los recursos esenciales', () => {
-  for (const file of ['./', './index.html', './styles.css?v=2.0.0-beta.3', './app.js?v=2.0.0-beta.3', './manifest.webmanifest', './icon-192.png', './icon-512.png']) {
+  for (const file of ['./', './index.html', './styles.css?v=2.0.0-beta.4', './app.js?v=2.0.0-beta.4', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
     assert.ok(sw.includes(`'${file}'`), `Falta ${file} en la caché`);
   }
   assert.match(sw, /key\.startsWith\('matematicas-tradicionales-beta-'\)/);
 });
 
 test('HTML carga estilos y lógica separados', () => {
-  assert.match(html, /href="styles\.css\?v=2\.0\.0-beta\.3"/);
-  assert.match(html, /src="app\.js\?v=2\.0\.0-beta\.3"/);
+  assert.match(html, /href="styles\.css\?v=2\.0\.0-beta\.4"/);
+  assert.match(html, /src="app\.js\?v=2\.0\.0-beta\.4"/);
   assert.doesNotMatch(html, /<style>/);
 });
 
@@ -102,4 +102,8 @@ test('muestra el estado sin conexión y conserva actualización al volver', () =
   assert.match(app, /addEventListener\('offline'/);
   assert.match(app, /addEventListener\('online'/);
   assert.match(sw, /caches\.match/);
+});
+
+test('comprueba las actualizaciones PWA sin reutilizar la caché HTTP', () => {
+  assert.match(app, /register\('\.\/service-worker\.js',\{updateViaCache:'none'\}\)/);
 });

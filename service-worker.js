@@ -1,12 +1,12 @@
-const CACHE_NAME = 'matematicas-tradicionales-beta-v2-0-0-beta-3';
+const CACHE_NAME = 'matematicas-tradicionales-beta-v2-0-0-beta-4';
 const APP_FILES = [
   './',
   './index.html',
-  './styles.css?v=2.0.0-beta.3',
-  './app.js?v=2.0.0-beta.3',
+  './styles.css?v=2.0.0-beta.4',
+  './app.js?v=2.0.0-beta.4',
   './manifest.webmanifest',
-  './icon-192.png',
-  './icon-512.png'
+  './icon-beta-192.png',
+  './icon-beta-512.png'
 ];
 
 self.addEventListener('install', event => {

@@ -1116,7 +1116,7 @@ $('updateBtn').onclick=()=>{if(swRegistration?.waiting)swRegistration.waiting.po
 if('serviceWorker'in navigator){
   window.addEventListener('load',async()=>{
     try{
-      swRegistration=await navigator.serviceWorker.register('./service-worker.js');
+      swRegistration=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});
       if(swRegistration.waiting)showUpdate();
       swRegistration.addEventListener('updatefound',()=>{
         const nw=swRegistration.installing;
