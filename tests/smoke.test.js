@@ -50,15 +50,15 @@ test('objetivos por sesión diaria y semanal', () => {
 });
 
 test('la PWA mantiene los recursos esenciales', () => {
-  for (const file of ['./', './index.html', './styles.css?v=2.1-beta-build2', './app.js?v=2.1-beta-build2', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
+  for (const file of ['./', './index.html', './styles.css?v=2.2-beta-build1', './app.js?v=2.2-beta-build1', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
     assert.ok(sw.includes(`'${file}'`), `Falta ${file} en la caché`);
   }
   assert.match(sw, /key\.startsWith\('matematicas-tradicionales-beta-'\)/);
 });
 
 test('HTML carga estilos y lógica separados', () => {
-  assert.match(html, /href="styles\.css\?v=2\.1-beta-build2"/);
-  assert.match(html, /src="app\.js\?v=2\.1-beta-build2"/);
+  assert.match(html, /href="styles\.css\?v=2\.2-beta-build1"/);
+  assert.match(html, /src="app\.js\?v=2\.2-beta-build1"/);
   assert.doesNotMatch(html, /<style>/);
 });
 
@@ -109,8 +109,8 @@ test('comprueba las actualizaciones PWA sin reutilizar la caché HTTP', () => {
   assert.match(app, /register\('\.\/service-worker\.js',\{updateViaCache:'none'\}\)/);
 });
 
-test('V2.1 Beta incluye herramientas familiares y accesibilidad', () => {
-  assert.match(html, /Versión 2\.1 Beta/);
+test('V2.2 Beta 1 incluye herramientas familiares y accesibilidad', () => {
+  assert.match(html, /Versión 2\.2 Beta 1/);
   assert.match(app, /DEFAULT_PREFERENCES/);
   assert.match(app, /exportBackup/);
   assert.match(app, /checkForUpdate/);
@@ -119,10 +119,24 @@ test('V2.1 Beta incluye herramientas familiares y accesibilidad', () => {
   assert.doesNotMatch(app, /sumasRestas_v5/);
 });
 
+test('la versión beta mantiene su identidad separada', () => {
+  assert.match(html, /Matemáticas Beta|icon-beta/);
+  assert.match(app, /sumasRestas_beta/);
+  assert.match(sw, /-beta-/);
+});
+
 test('muestra la configuración actual en cada modo', () => {
   assert.match(app, /function operationConfigText/);
   assert.match(app, /function updateOperationDescriptions/);
   assert.match(app, /profile\.counts\[op\]/);
   assert.match(app, /entero exacto/);
   assert.match(app, /con llevadas/);
+});
+
+test('permite compartir o copiar el enlace oficial', () => {
+  assert.match(html, /id="shareAppBtn"/);
+  assert.match(html, /id="copyAppLinkBtn"/);
+  assert.match(app, /navigator\.share/);
+  assert.match(app, /navigator\.clipboard\?\.writeText/);
+  assert.match(app, /https:\/\/aitor01990\.github\.io\/Sumas-y-restas-beta\//);
 });

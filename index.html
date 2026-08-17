@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-beta-192.png">
 <link rel="apple-touch-icon" href="icon-beta-192.png">
 <title>Matemáticas Beta</title>
-<link rel="stylesheet" href="styles.css?v=2.1-beta-build2">
+<link rel="stylesheet" href="styles.css?v=2.2-beta-build1">
 </head>
 <body>
 <div class="app">
@@ -27,7 +27,12 @@
 
     <div id="userList" class="user-list"></div>
     <button id="newUserBtn" class="new-user-button">+ Crear nuevo usuario</button>
-    <p class="app-version">Versión 2.1 Beta</p>
+    <p class="app-version">Versión 2.2 Beta 1</p>
+    <aside class="share-project" aria-label="Compartir aplicación">
+      <div><b>Comparte Matemáticas Beta</b><span>Envía el enlace a otra familia o cópialo para compartirlo después.</span></div>
+      <div class="share-actions"><button id="shareAppBtn" type="button">↗ Compartir</button><button id="copyAppLinkBtn" type="button">⧉ Copiar enlace</button></div>
+      <div id="shareStatus" class="share-status" role="status" aria-live="polite"></div>
+    </aside>
     <aside class="support-project" aria-label="Apoyar el proyecto">
       <div><b>¿Te resulta útil esta aplicación?</b><span>Seguirá siendo gratuita. Puedes apoyar voluntariamente su mantenimiento y futuras mejoras.</span></div>
       <button id="supportProjectBtn" type="button">☕ Apoyar el proyecto</button>
@@ -153,7 +158,7 @@
 <div id="offlineBadge" class="offline-badge" role="status">Sin conexión · tus datos se guardan en este dispositivo</div>
 <div id="updateBanner" class="update-banner"><span>Nueva versión disponible</span><button id="updateBtn">Actualizar</button></div>
 
-<script src="app.js?v=2.1-beta-build2"></script>
+<script src="app.js?v=2.2-beta-build1"></script>
 </body>
 </html>
 
