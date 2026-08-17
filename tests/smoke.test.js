@@ -50,15 +50,15 @@ test('objetivos por sesión diaria y semanal', () => {
 });
 
 test('la PWA mantiene los recursos esenciales', () => {
-  for (const file of ['./', './index.html', './styles.css?v=2.0.0-beta.5', './app.js?v=2.0.0-beta.5', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
+  for (const file of ['./', './index.html', './styles.css?v=2.1-beta-build1', './app.js?v=2.1-beta-build1', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
     assert.ok(sw.includes(`'${file}'`), `Falta ${file} en la caché`);
   }
   assert.match(sw, /key\.startsWith\('matematicas-tradicionales-beta-'\)/);
 });
 
 test('HTML carga estilos y lógica separados', () => {
-  assert.match(html, /href="styles\.css\?v=2\.0\.0-beta\.5"/);
-  assert.match(html, /src="app\.js\?v=2\.0\.0-beta\.5"/);
+  assert.match(html, /href="styles\.css\?v=2\.1-beta-build1"/);
+  assert.match(html, /src="app\.js\?v=2\.1-beta-build1"/);
   assert.doesNotMatch(html, /<style>/);
 });
 
@@ -107,4 +107,14 @@ test('muestra el estado sin conexión y conserva actualización al volver', () =
 
 test('comprueba las actualizaciones PWA sin reutilizar la caché HTTP', () => {
   assert.match(app, /register\('\.\/service-worker\.js',\{updateViaCache:'none'\}\)/);
+});
+
+test('V2.1 Beta incluye herramientas familiares y accesibilidad', () => {
+  assert.match(html, /Versión 2\.1 Beta/);
+  assert.match(app, /DEFAULT_PREFERENCES/);
+  assert.match(app, /exportBackup/);
+  assert.match(app, /checkForUpdate/);
+  assert.match(app, /Progreso para adultos/);
+  assert.match(app, /Racha de 30 días/);
+  assert.doesNotMatch(app, /sumasRestas_v5/);
 });

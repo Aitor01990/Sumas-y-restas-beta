@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-beta-192.png">
 <link rel="apple-touch-icon" href="icon-beta-192.png">
 <title>Matemáticas Beta</title>
-<link rel="stylesheet" href="styles.css?v=2.0.0-beta.5">
+<link rel="stylesheet" href="styles.css?v=2.1-beta-build1">
 </head>
 <body>
 <div class="app">
@@ -27,7 +27,7 @@
 
     <div id="userList" class="user-list"></div>
     <button id="newUserBtn" class="new-user-button">+ Crear nuevo usuario</button>
-    <p class="app-version">Versión 2.0.0 beta 5 · Canal de pruebas</p>
+    <p class="app-version">Versión 2.1 Beta</p>
     <aside class="support-project" aria-label="Apoyar el proyecto">
       <div><b>¿Te resulta útil esta aplicación?</b><span>Seguirá siendo gratuita. Puedes apoyar voluntariamente su mantenimiento y futuras mejoras.</span></div>
       <button id="supportProjectBtn" type="button">☕ Apoyar el proyecto</button>
@@ -86,7 +86,7 @@
 
 <section id="settingsScreen" class="screen">
   <div class="page-head"><button id="backSettingsBtn" class="icon-btn" aria-label="Volver">←</button><div class="page-head-title">Ajustes<span class="page-head-sub">Configuración para adultos</span></div><div class="ghost-space"></div></div>
-  <div class="card"><div id="settingsOptions" class="program-list"></div><button id="saveSettingsBtn" class="difficulty-start">Guardar ajustes</button><div id="settingsSaveNote" class="settings-save-note"></div></div>
+  <div class="card"><div id="settingsOptions" class="program-list"></div><div id="settingsTools"></div><button id="saveSettingsBtn" class="difficulty-start">Guardar ajustes</button><div id="settingsSaveNote" class="settings-save-note"></div><input id="importBackupInput" type="file" accept="application/json" hidden></div>
 </section>
 
 <!-- PROGRAMACIÓN DE SESIÓN -->
@@ -153,7 +153,7 @@
 <div id="offlineBadge" class="offline-badge" role="status">Sin conexión · tus datos se guardan en este dispositivo</div>
 <div id="updateBanner" class="update-banner"><span>Nueva versión disponible</span><button id="updateBtn">Actualizar</button></div>
 
-<script src="app.js?v=2.0.0-beta.5"></script>
+<script src="app.js?v=2.1-beta-build1"></script>
 </body>
 </html>
 
