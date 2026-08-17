@@ -50,15 +50,15 @@ test('objetivos por sesión diaria y semanal', () => {
 });
 
 test('la PWA mantiene los recursos esenciales', () => {
-  for (const file of ['./', './index.html', './styles.css?v=2.2-beta-build1', './app.js?v=2.2-beta-build1', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
+  for (const file of ['./', './index.html', './styles.css?v=2.2-beta-build2', './app.js?v=2.2-beta-build2', './manifest.webmanifest', './icon-beta-192.png', './icon-beta-512.png']) {
     assert.ok(sw.includes(`'${file}'`), `Falta ${file} en la caché`);
   }
   assert.match(sw, /key\.startsWith\('matematicas-tradicionales-beta-'\)/);
 });
 
 test('HTML carga estilos y lógica separados', () => {
-  assert.match(html, /href="styles\.css\?v=2\.2-beta-build1"/);
-  assert.match(html, /src="app\.js\?v=2\.2-beta-build1"/);
+  assert.match(html, /href="styles\.css\?v=2\.2-beta-build2"/);
+  assert.match(html, /src="app\.js\?v=2\.2-beta-build2"/);
   assert.doesNotMatch(html, /<style>/);
 });
 
@@ -109,14 +109,23 @@ test('comprueba las actualizaciones PWA sin reutilizar la caché HTTP', () => {
   assert.match(app, /register\('\.\/service-worker\.js',\{updateViaCache:'none'\}\)/);
 });
 
-test('V2.2 Beta 1 incluye herramientas familiares y accesibilidad', () => {
-  assert.match(html, /Versión 2\.2 Beta 1/);
+test('V2.2 Beta 2 incluye herramientas familiares y accesibilidad', () => {
+  assert.match(html, /Versión 2\.2 Beta 2/);
   assert.match(app, /DEFAULT_PREFERENCES/);
   assert.match(app, /exportBackup/);
   assert.match(app, /checkForUpdate/);
   assert.match(app, /Progreso para adultos/);
   assert.match(app, /Racha de 30 días/);
   assert.doesNotMatch(app, /sumasRestas_v5/);
+});
+
+test('incluye información legal y exige confirmar las condiciones de la aportación', () => {
+  assert.match(html, /Información legal y privacidad/);
+  assert.match(html, /ni implican la obligación de desarrollar nuevas funciones/);
+  assert.match(html, /id="supportConsentCheck"/);
+  assert.match(html, /no implica ninguna contraprestación/);
+  assert.match(app, /function updateSupportConsent/);
+  assert.match(app, /if\(!\$\('supportConsentCheck'\)\.checked\)e\.preventDefault\(\)/);
 });
 
 test('la versión beta mantiene su identidad separada', () => {
