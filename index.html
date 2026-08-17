@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-beta-192.png">
 <link rel="apple-touch-icon" href="icon-beta-192.png">
 <title>Matemáticas Beta</title>
-<link rel="stylesheet" href="styles.css?v=2.2-beta-build1">
+<link rel="stylesheet" href="styles.css?v=2.2-beta-build2">
 </head>
 <body>
 <div class="app">
@@ -27,7 +27,7 @@
 
     <div id="userList" class="user-list"></div>
     <button id="newUserBtn" class="new-user-button">+ Crear nuevo usuario</button>
-    <p class="app-version">Versión 2.2 Beta 1</p>
+    <p class="app-version">Versión 2.2 Beta 2</p>
     <aside class="share-project" aria-label="Compartir aplicación">
       <div><b>Comparte Matemáticas Beta</b><span>Envía el enlace a otra familia o cópialo para compartirlo después.</span></div>
       <div class="share-actions"><button id="shareAppBtn" type="button">↗ Compartir</button><button id="copyAppLinkBtn" type="button">⧉ Copiar enlace</button></div>
@@ -37,6 +37,7 @@
       <div><b>¿Te resulta útil esta aplicación?</b><span>Seguirá siendo gratuita. Puedes apoyar voluntariamente su mantenimiento y futuras mejoras.</span></div>
       <button id="supportProjectBtn" type="button">☕ Apoyar el proyecto</button>
     </aside>
+    <button id="legalInfoBtn" class="legal-info-button" type="button">Información legal y privacidad</button>
 
     <div id="newUserRow" class="new-user-row">
       <input id="newUserName" type="text" maxlength="24" placeholder="Nombre">
@@ -52,7 +53,7 @@
 
 <section id="supportResultScreen" class="screen">
   <div class="page-head"><button id="backSupportResultBtn" class="icon-btn" aria-label="Volver">←</button><div class="page-head-title">Prueba terminada<span class="page-head-sub">Se necesitan cuatro aciertos</span></div><div class="ghost-space"></div></div>
-  <div class="card exam-summary"><div id="supportResultMessage" class="support-result-message"></div><div id="supportScore" class="exam-score"></div><div id="supportReview" class="exam-review"></div><div class="support-result-actions"><button id="retrySupportBtn" class="answer-btn">Intentarlo de nuevo</button><a id="openSupportLink" class="support-link-btn" href="https://buymeacoffee.com/aitorcrea" target="_blank" rel="noopener noreferrer">☕ Invitar a AitorCrea a un café</a><button id="leaveSupportBtn" class="answer-btn">Volver al inicio</button></div><p class="support-free-note">Apoyar es completamente voluntario. La aplicación seguirá siendo gratuita.</p></div>
+  <div class="card exam-summary"><div id="supportResultMessage" class="support-result-message"></div><div id="supportScore" class="exam-score"></div><div id="supportReview" class="exam-review"></div><label id="supportConsent" class="support-consent"><input id="supportConsentCheck" type="checkbox"><span>Entiendo que mi aportación es voluntaria, no implica ninguna contraprestación y no obliga a desarrollar, modificar, mantener ni actualizar la aplicación.</span></label><div class="support-result-actions"><button id="retrySupportBtn" class="answer-btn">Intentarlo de nuevo</button><a id="openSupportLink" class="support-link-btn disabled" href="https://buymeacoffee.com/aitorcrea" target="_blank" rel="noopener noreferrer" aria-disabled="true" tabindex="-1">☕ Invitar a AitorCrea a un café</a><button id="leaveSupportBtn" class="answer-btn">Volver al inicio</button></div><p class="support-free-note">Las aportaciones económicas son completamente voluntarias. No constituyen una compra ni son necesarias para utilizar la aplicación.</p></div>
 </section>
 
 <!-- 2. OPERACIÓN -->
@@ -153,12 +154,13 @@
 
 <div id="infoModal" class="modal" role="dialog" aria-modal="true"><div class="modal-card"><div class="modal-head"><h2>Cómo se hace</h2><button id="closeInfo" class="close">×</button></div><div id="infoText" class="info-text"></div></div></div>
 <div id="parentGateModal" class="modal" role="dialog" aria-modal="true"><div class="modal-card parent-gate"><div class="modal-head"><h2>Acceso para adultos</h2><button id="closeParentGate" class="close">×</button></div><p>¿Qué se utilizaba para rebobinar una cinta de casete?</p><label class="parent-answer"><b>B</b><input id="parentAnswer" maxlength="3" autocomplete="off" aria-label="Completa Boli"><b>Bic</b></label><div id="parentGateStatus" class="status"></div><button id="parentGateBtn" class="difficulty-start">Entrar en Ajustes</button></div></div>
+<div id="legalModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="legalTitle"><div class="modal-card legal-card"><div class="modal-head"><h2 id="legalTitle">Información legal y privacidad</h2><button id="closeLegal" class="close" aria-label="Cerrar">×</button></div><div class="legal-text"><h3>Proyecto educativo personal</h3><p>Matemáticas Beta es un proyecto educativo personal, independiente y gratuito, creado para facilitar la práctica de operaciones matemáticas.</p><p>La aplicación se proporciona tal como está y puede contener errores, resultados incorrectos o interrupciones. Aunque se procura revisar su contenido, no se garantiza que todos los ejercicios, explicaciones o correcciones sean siempre exactos.</p><p>Es una herramienta complementaria y no sustituye la enseñanza, supervisión o criterio de padres, tutores y profesionales de la educación. Se recomienda que los menores la utilicen bajo la supervisión de una persona adulta.</p><p>El uso es voluntario. El autor no será responsable del uso inadecuado ni de las consecuencias derivadas de confiar exclusivamente en sus contenidos, dentro de los límites permitidos por la legislación aplicable.</p><h3>Privacidad y datos</h3><p>Los usuarios, configuraciones, resultados e historial se almacenan localmente en este dispositivo. El autor no recibe ni almacena esta información. Los datos pueden perderse al borrar los datos del navegador, desinstalar la aplicación, cambiar de dispositivo o producirse un fallo técnico.</p><h3>Aportaciones y enlaces externos</h3><p>Las aportaciones económicas son completamente voluntarias. No constituyen una compra ni son necesarias para utilizar la aplicación. Tampoco otorgan derechos sobre el proyecto ni implican la obligación de desarrollar nuevas funciones, realizar modificaciones, prestar asistencia técnica o mantener y actualizar la aplicación. El proyecto puede cambiar, interrumpirse o dejar de mantenerse en cualquier momento.</p><p>Los enlaces externos, incluido Buy Me a Coffee, se rigen por las condiciones y políticas de privacidad de sus respectivos servicios.</p><p class="legal-meta"><b>Autor:</b> AitorCrea · <b>Última actualización:</b> agosto de 2026</p></div></div></div>
 <div id="historyModal" class="modal" role="dialog" aria-modal="true"><div class="modal-card"><div class="modal-head"><h2>Historial</h2><button id="closeHistory" class="close">×</button></div><div id="historyUser" class="history-user"></div><label class="history-period"><span>Mostrar</span><select id="historyPeriod"><option value="week">Última semana</option><option value="month" selected>Último mes</option><option value="year">Último año</option><option value="all">Todo el historial</option></select></label><div id="stats" class="stats"></div><div id="streakNote" class="streak-note"></div><div id="historyCalendar" class="history-calendar"></div><div id="historyList" class="history-list"></div><div class="history-footer"><button id="clearHistory" class="danger">Borrar historial</button></div></div></div>
 <button id="installBtn" style="display:none"></button>
 <div id="offlineBadge" class="offline-badge" role="status">Sin conexión · tus datos se guardan en este dispositivo</div>
 <div id="updateBanner" class="update-banner"><span>Nueva versión disponible</span><button id="updateBtn">Actualizar</button></div>
 
-<script src="app.js?v=2.2-beta-build1"></script>
+<script src="app.js?v=2.2-beta-build2"></script>
 </body>
 </html>
 
