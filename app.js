@@ -2,7 +2,7 @@
 
 const $=id=>document.getElementById(id);
 const STORAGE_KEY='sumasRestas_beta_v1'; // datos independientes de la aplicación estable
-const APP_VERSION='2.2 Beta 1';
+const APP_VERSION='2.2 Beta 2';
 const APP_SHARE_URL='https://aitor01990.github.io/Sumas-y-restas-beta/';
 const DEFAULT_PREFERENCES={largeText:false,highContrast:false,sounds:false,voice:false};
 
@@ -881,8 +881,9 @@ function showSupportResults(){
   $('supportResultMessage').textContent=passed?'¡Ahora sí te creemos! 😄 Gracias de corazón por valorar el trabajo y por ese café.':'¡Casi! Parece que todavía necesitas un poco más de práctica 😄';
   $('supportScore').textContent=`${correct} / 4`;
   $('supportReview').innerHTML=examResults.map((x,i)=>`<div class="exam-review-item ${x.correct?'ok':'fail'}"><div>${i+1}. ${escapeHtml(x.expression)} · ${x.correct?'✓':`Tu respuesta final: ${escapeHtml(x.answer)} ✗`}</div>${x.mistakes?.length?`<small>${x.mistakes.map(m=>escapeHtml(m)).join(' · ')}</small>`:''}</div>`).join('');
-  $('openSupportLink').style.display=passed?'inline-grid':'none';$('retrySupportBtn').style.display=passed?'none':'';showScreen('supportResultScreen');
+  $('openSupportLink').style.display=passed?'inline-grid':'none';$('retrySupportBtn').style.display=passed?'none':'';$('supportConsent').style.display=passed?'flex':'none';$('supportConsentCheck').checked=false;updateSupportConsent();showScreen('supportResultScreen');
 }
+function updateSupportConsent(){const accepted=$('supportConsentCheck').checked,link=$('openSupportLink');link.classList.toggle('disabled',!accepted);link.setAttribute('aria-disabled',String(!accepted));link.tabIndex=accepted?0:-1}
 function leaveSupportChallenge(){sessionMode='single';exerciseQueue=[];examResults=[];queueIndex=0;record=null;showScreen('userScreen');renderUsers()}
 function startSupportChallenge(){
   exerciseQueue=shuffled([
@@ -1103,6 +1104,11 @@ $('backSupportIntroBtn').onclick=leaveSupportChallenge;$('declineSupportBtn').on
 $('acceptSupportBtn').onclick=startSupportChallenge;
 $('backSupportResultBtn').onclick=leaveSupportChallenge;$('leaveSupportBtn').onclick=leaveSupportChallenge;
 $('retrySupportBtn').onclick=startSupportChallenge;
+$('supportConsentCheck').onchange=updateSupportConsent;
+$('openSupportLink').onclick=e=>{if(!$('supportConsentCheck').checked)e.preventDefault()};
+$('legalInfoBtn').onclick=()=>$('legalModal').classList.add('show');
+$('closeLegal').onclick=()=>$('legalModal').classList.remove('show');
+$('legalModal').onclick=e=>{if(e.target===$('legalModal'))$('legalModal').classList.remove('show')};
 $('backSettingsBtn').onclick=()=>{showScreen('operationScreen');updateOperationStats()};
 $('saveSettingsBtn').onclick=()=>{persistUserConfig();$('settingsSaveNote').textContent='Ajustes guardados';setTimeout(()=>{$('settingsSaveNote').textContent='';showScreen('operationScreen');updateOperationStats()},650)};
 $('backOperationsBtn').onclick=()=>{showScreen('operationScreen');updateOperationStats()};
