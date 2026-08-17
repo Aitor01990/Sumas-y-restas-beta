@@ -473,7 +473,19 @@ function newExercise(queueItem=null){
   renderExercise();
 }
 function makeText(parent,row,col,text,cls='digit',id=''){const el=document.createElement('div');el.textContent=text;el.className=cls;el.style.gridRow=row;el.style.gridColumn=col;if(id)el.id=id;parent.appendChild(el);return el}
-function onEdit(){exerciseSolved=false;$('mainBtn').textContent=isExamSession()?'Siguiente':'Corregir';$('solutionBtn').disabled=false;$('status').textContent='';$('status').className='status';resetReveal()}
+function updateMagicEraser(){const btn=$('magicEraserBtn');if(btn)btn.style.display=!isExamSession()&&document.querySelector('#math input.bad')?'':'none'}
+function onEdit(){exerciseSolved=false;$('mainBtn').textContent=isExamSession()?'Siguiente':'Corregir';$('solutionBtn').disabled=false;$('status').textContent='';$('status').className='status';resetReveal();updateMagicEraser()}
+function eraseWrongAnswers(){
+  const wrong=[...document.querySelectorAll('#math input.bad')];
+  if(!wrong.length)return updateMagicEraser();
+  wrong.forEach(inp=>{
+    inp.value='';inp.classList.remove('bad');
+    if(inp.dataset.type==='bottomreplacement')$('bottom-'+inp.dataset.index)?.classList.remove('changed');
+  });
+  exerciseSolved=false;$('mainBtn').textContent='Corregir';$('solutionBtn').disabled=false;resetReveal();updateMagicEraser();
+  $('status').textContent='¡Listo! Intenta de nuevo las casillas borradas';$('status').className='status';
+  wrong[0].focus();
+}
 function makeInput(parent,row,col,type,index,enabled=true,maxLength=1){const input=document.createElement('input');input.className='small-input'+(maxLength===2?' two':'');input.inputMode='numeric';input.maxLength=maxLength;input.autocomplete='off';input.dataset.type=type;input.dataset.index=index;input.style.gridRow=row;input.style.gridColumn=col;if(!enabled)input.disabled=true;input.addEventListener('input',()=>{input.value=input.value.replace(/\D/g,'').slice(0,maxLength);input.classList.remove('good','bad');onEdit();if(type==='bottomreplacement'){const original=$('bottom-'+index);if(original)original.classList.toggle('changed',input.value!=='')}});parent.appendChild(input);return input}
 function makeAnswer(parent,row,col,index){const input=document.createElement('input');input.className='answer';input.inputMode='numeric';input.maxLength=1;input.autocomplete='off';input.dataset.type='answer';input.dataset.index=index;input.style.gridRow=row;input.style.gridColumn=col;input.addEventListener('input',()=>{input.value=input.value.replace(/\D/g,'').slice(-1);input.classList.remove('good','bad');onEdit()});parent.appendChild(input);return input}
 function renderExercise(){
@@ -488,6 +500,7 @@ function renderExercise(){
   $('exerciseLabel').textContent=labelOp(current.op);
   const host=$('math');
   host.innerHTML='';
+  updateMagicEraser();
 
   if(current.op==='div')return renderDivision(host);
   if(current.op==='add')return renderAddition(host);
@@ -911,12 +924,14 @@ function grade(){
     $('status').className='status ok';
     $('mainBtn').textContent='Siguiente';
     $('solutionBtn').disabled=true;
+    updateMagicEraser();
     commitRecord();
     completedThisSession++;
     updateCounter();
   }else{
     $('status').textContent='Revisa las casillas en rojo';
     $('status').className='status error';
+    updateMagicEraser();
   }
   return ok;
 }
@@ -971,6 +986,7 @@ function fillSolution(){
   $('status').className='status ok';
   $('mainBtn').textContent='Siguiente';
   $('solutionBtn').disabled=true;
+  updateMagicEraser();
   resetReveal();
   commitRecord();
   completedThisSession++;
@@ -1050,6 +1066,7 @@ $('startBtn').onclick=()=>{
 };
 $('backBtn').onclick=()=>{if(sessionMode==='supportExam'){record=null;showScreen('supportIntroScreen');return}showScreen('operationScreen');updateOperationStats()};
 $('mainBtn').onclick=()=>{if(isExamSession())return submitExamExercise();if(exerciseSolved)return sessionMode==='practice'?advanceQueuedExercise():newExercise();grade()};
+$('magicEraserBtn').onclick=eraseWrongAnswers;
 $('finishExamBtn').onclick=()=>{sessionMode='single';showScreen('operationScreen');updateOperationStats()};
 $('solutionBtn').onclick=()=>{
   if(!revealConfirm){
